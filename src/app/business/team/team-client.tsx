@@ -36,8 +36,41 @@ interface TeamClientProps {
     workedWithCount: number;
 }
 
-// Generate professional avatar URL using DiceBear
-function getAvatarUrl(name: string): string {
+// Map talent names to their local AI-generated avatars
+const talentImages: Record<string, string> = {
+    "Marcus Beaumont": "/images/talent/marcus.png",
+    "Isabella Vance": "/images/talent/isabella.png",
+    "James Thornton": "/images/talent/james.png",
+    "Sophia Chen": "/images/talent/sophia.png",
+    "Olivier Dubois": "/images/talent/olivier.png",
+    "Elena Rossi": "/images/talent/elena.png",
+    "William Sterling": "/images/talent/william.png",
+    "Charlotte Ashford": "/images/talent/charlotte.png",
+    "Sebastian Wright": "/images/talent/sebastian.png",
+    "Victoria Hayes": "/images/talent/victoria.png",
+    "Alexander Reed": "/images/talent/alexander.png",
+    "Emma Blackwell": "/images/talent/emma.png",
+    "Nicholas Crane": "/images/talent/nicholas.png",
+    "Amelia Frost": "/images/talent/amelia.png",
+    "Benjamin Cole": "/images/talent/benjamin.png",
+    "Alexandra Weston": "/images/talent/alexandra.png",
+    "Christian Blake": "/images/talent/christian.png",
+    // Diana Pierce, Maxfield Grant, Natalie Sinclair (Pending generation due to quota)
+};
+
+// Generate professional avatar URL
+function getAvatarUrl(name: string, dbUrl?: string | null): string {
+    // Check if we have a premium local image for this talent
+    if (talentImages[name]) {
+        return talentImages[name];
+    }
+
+    // Use database URL if available and no local override exists
+    if (dbUrl) {
+        return dbUrl;
+    }
+
+    // Fallback to DiceBear for others
     const seed = name.toLowerCase().replace(/\s+/g, "");
     return `https://api.dicebear.com/7.x/personas/svg?seed=${seed}&backgroundColor=c9a962,f4a261,e76f51,2a9d8f,264653`;
 }
@@ -164,7 +197,7 @@ export default function TeamClient({ talent, workedWithCount }: TeamClientProps)
                                     {/* Avatar */}
                                     <div className="relative w-20 h-20 mx-auto mb-4">
                                         <Image
-                                            src={member.photo_urls?.[0] || getAvatarUrl(member.full_name)}
+                                            src={getAvatarUrl(member.full_name, member.photo_urls?.[0])}
                                             alt={member.full_name}
                                             fill
                                             className="rounded-full object-cover ring-2 ring-border-subtle group-hover:ring-accent-gold/50 transition-all"
@@ -246,10 +279,10 @@ export default function TeamClient({ talent, workedWithCount }: TeamClientProps)
                                 <div className="text-center mb-6">
                                     <div className="relative w-24 h-24 mx-auto mb-4">
                                         <Image
-                                            src={selectedTalent.photo_urls?.[0] || getAvatarUrl(selectedTalent.full_name)}
+                                            src={getAvatarUrl(selectedTalent.full_name, selectedTalent.photo_urls?.[0])}
                                             alt={selectedTalent.full_name}
                                             fill
-                                            className="rounded-full object-cover ring-4 ring-accent-gold/20"
+                                            className="rounded-full object-cover"
                                         />
                                         {selectedTalent.available_now && (
                                             <span className="absolute bottom-0 right-0 w-6 h-6 bg-success rounded-full border-2 border-bg-secondary flex items-center justify-center">

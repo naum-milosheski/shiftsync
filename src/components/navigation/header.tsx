@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 import { Bell, Search, Menu, X, Calendar, MessageSquare, Users, DollarSign, ChevronRight, Briefcase, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -36,8 +37,8 @@ interface Notification {
 const demoSearchResults: SearchResult[] = [
     { id: "1", type: "shift", title: "NYE Gala Bartenders", subtitle: "Dec 31, 2024 • Sterling Events", href: "/business/shifts/s1000000-0000-0000-0000-000000000001", icon: <Calendar className="w-4 h-4 text-accent-gold" /> },
     { id: "2", type: "shift", title: "Corporate Mixer", subtitle: "Jan 5, 2025 • Open", href: "/business/shifts/s1000000-0000-0000-0000-000000000002", icon: <Calendar className="w-4 h-4 text-accent-gold" /> },
-    { id: "3", type: "talent", title: "Marcus Beaumont", subtitle: "Bartender • 4.95★", href: "/business/team", icon: <Users className="w-4 h-4 text-success" /> },
-    { id: "4", type: "talent", title: "Isabella Vance", subtitle: "Sommelier • 4.88★", href: "/business/team", icon: <Users className="w-4 h-4 text-success" /> },
+    { id: "3", type: "talent", title: "Marcus Beaumont", subtitle: "Bartender • 4.95★", href: "/business/team", icon: <Image src="/images/talent/marcus.png" alt="Marcus" width={32} height={32} className="rounded-lg object-cover" /> },
+    { id: "4", type: "talent", title: "Isabella Vance", subtitle: "Sommelier • 4.88★", href: "/business/team", icon: <Image src="/images/talent/isabella.png" alt="Isabella" width={32} height={32} className="rounded-lg object-cover" /> },
     { id: "5", type: "message", title: "James Thornton", subtitle: "Thank you for the opportunity!", href: "/business/messages", icon: <MessageSquare className="w-4 h-4 text-info" /> },
     { id: "6", type: "page", title: "Dashboard", subtitle: "View your overview", href: "/business/dashboard", icon: <Briefcase className="w-4 h-4 text-text-muted" /> },
     { id: "7", type: "page", title: "Team", subtitle: "Manage your talent roster", href: "/business/team", icon: <Users className="w-4 h-4 text-text-muted" /> },
@@ -54,6 +55,7 @@ const demoNotifications: Notification[] = [
 
 export function Header({ title, showSearch = true, className, variant = "default" }: HeaderProps) {
     const router = useRouter();
+    const pathname = usePathname();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -204,7 +206,7 @@ export function Header({ title, showSearch = true, className, variant = "default
                 <div className={cn("flex items-center gap-2 pointer-events-auto", isMinimal && "ml-auto")}>
                     {/* Settings (Mobile/Tablet only) */}
                     <Link
-                        href="/business/settings"
+                        href={pathname.startsWith("/talent") ? "/talent/settings" : "/business/settings"}
                         className="lg:hidden p-2 text-text-secondary hover:text-text-primary hover:bg-bg-hover rounded-lg transition-colors cursor-pointer"
                     >
                         <Settings className="w-5 h-5" />

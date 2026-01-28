@@ -12,11 +12,11 @@ interface BottomNavProps {
 export function BottomNav({ items }: BottomNavProps) {
     const pathname = usePathname();
 
-    // Only show first 5 items on mobile (skip Settings which is accessible via header)
-    const mobileItems = items.slice(0, 5);
+    // Filter out Settings (accessible via header) and show up to 5 items on mobile
+    const mobileItems = items.filter(item => item.label !== "Settings").slice(0, 5);
 
     return (
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 glass border-t border-border-subtle pb-safe">
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-bg-primary border-t border-border-subtle pb-safe">
             <div className="flex items-center justify-around h-[72px] px-2">
                 {mobileItems.map((item) => {
                     const isActive = pathname.startsWith(item.href);

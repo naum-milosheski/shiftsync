@@ -37,7 +37,7 @@ const demoConversations: Conversation[] = [
     {
         id: "1",
         name: "Marcus Beaumont",
-        avatar: "https://api.dicebear.com/7.x/personas/svg?seed=marcus&backgroundColor=c9a962",
+        avatar: "/images/talent/marcus.png",
         role: "Bartender",
         lastMessage: "Perfect, I'll arrive 30 minutes early for setup.",
         lastMessageTime: new Date(Date.now() - 1000 * 60 * 15), // 15 min ago
@@ -54,7 +54,7 @@ const demoConversations: Conversation[] = [
     {
         id: "2",
         name: "Isabella Vance",
-        avatar: "https://api.dicebear.com/7.x/personas/svg?seed=isabella&backgroundColor=f4a261",
+        avatar: "/images/talent/isabella.png",
         role: "Sommelier",
         lastMessage: "The wine selection looks perfect for the tasting event.",
         lastMessageTime: new Date(Date.now() - 1000 * 60 * 60 * 3), // 3 hours ago
@@ -69,7 +69,7 @@ const demoConversations: Conversation[] = [
     {
         id: "3",
         name: "James Thornton",
-        avatar: "https://api.dicebear.com/7.x/personas/svg?seed=james&backgroundColor=2a9d8f",
+        avatar: "/images/talent/james.png",
         role: "Event Staff",
         lastMessage: "Thank you for the opportunity! Looking forward to working with your team again.",
         lastMessageTime: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
@@ -82,7 +82,7 @@ const demoConversations: Conversation[] = [
     {
         id: "4",
         name: "Sophia Chen",
-        avatar: "https://api.dicebear.com/7.x/personas/svg?seed=sophia&backgroundColor=264653",
+        avatar: "/images/talent/sophia.png",
         role: "Mixologist",
         lastMessage: "I can bring my Japanese whisky collection for the tasting portion.",
         lastMessageTime: new Date(Date.now() - 1000 * 60 * 60 * 48), // 2 days ago
