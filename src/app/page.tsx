@@ -29,7 +29,7 @@ export default async function LandingPage() {
             <LandingHeader isLoggedIn={isLoggedIn} />
 
             {/* Section 1: Hero */}
-            <section className="relative pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-48 lg:pb-32 px-6 lg:px-8 overflow-hidden">
+            <section className="relative min-h-svh sm:min-h-0 pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-48 lg:pb-32 px-6 lg:px-8 overflow-hidden flex flex-col justify-center sm:block">
                 {/* Background gradient */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-accent-gold/5 rounded-full blur-3xl opacity-50" />

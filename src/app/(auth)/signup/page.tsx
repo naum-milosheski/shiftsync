@@ -3,18 +3,19 @@
 import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, ArrowRight, CheckCircle2, Building2, User, ArrowLeft } from "lucide-react";
+import { Mail, ArrowRight, CheckCircle2, Building2, User, ArrowLeft, Loader2 } from "lucide-react";
 import { checkEmailExists } from "@/lib/actions/check-email-exists";
 
 type Role = "business" | "talent" | null;
 
 function SignupForm() {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const initialRole = (searchParams.get("role") as Role) || null;
 
     const [step, setStep] = useState<"role" | "email" | "success">(initialRole ? "email" : "role");
@@ -22,11 +23,41 @@ function SignupForm() {
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [demoLoading, setDemoLoading] = useState(false);
 
     const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
+
+    const handleDemoLogin = async () => {
+        if (!role) return;
+        setDemoLoading(true);
+        setError(null);
+
+        try {
+            const demoEmail = role === 'business'
+                ? 'demo.business@shiftsync.com'
+                : 'demo.talent@shiftsync.com';
+            const password = 'demo123';
+
+            const { error } = await supabase.auth.signInWithPassword({
+                email: demoEmail,
+                password,
+            });
+
+            if (error) {
+                setError(`Demo login failed: ${error.message}`);
+                setDemoLoading(false);
+                return;
+            }
+
+            router.push(role === 'business' ? '/business/dashboard' : '/talent/dashboard');
+        } catch {
+            setError("Demo login failed. Please try again.");
+            setDemoLoading(false);
+        }
+    };
 
     // Update step when initialRole changes
     useEffect(() => {
@@ -273,6 +304,40 @@ function SignupForm() {
                         Apple
                     </Button>
                 </div>
+
+                {/* Demo Access Section */}
+                <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-border-subtle" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-bg-secondary px-2 text-text-muted">
+                            🎭 Or try the demo first
+                        </span>
+                    </div>
+                </div>
+
+                <Button
+                    type="button"
+                    variant="outline"
+                    className={`w-full ${role === 'business'
+                            ? 'border-accent-gold/30 hover:border-accent-gold hover:bg-accent-gold/10'
+                            : 'border-green-500/30 hover:border-green-500 hover:bg-green-500/10'
+                        }`}
+                    onClick={handleDemoLogin}
+                    disabled={demoLoading}
+                >
+                    {demoLoading ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : role === 'business' ? (
+                        <Building2 className="w-4 h-4 text-accent-gold" />
+                    ) : (
+                        <User className="w-4 h-4 text-green-500" />
+                    )}
+                    <span className={role === 'business' ? 'text-accent-gold' : 'text-green-500'}>
+                        {role === 'business' ? 'Try Business Demo' : 'Try Talent Demo'}
+                    </span>
+                </Button>
             </CardContent>
 
             <CardFooter className="justify-center border-t border-border-subtle pt-6">
