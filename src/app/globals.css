@@ -96,6 +96,7 @@
 html {
   background: var(--bg-primary);
   color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
