@@ -31,8 +31,9 @@ export default async function LandingPage() {
             {/* Section 1: Hero */}
             <section className="relative min-h-svh sm:min-h-0 pt-20 pb-12 sm:pt-28 sm:pb-16 lg:pt-48 lg:pb-32 px-6 lg:px-8 overflow-hidden flex flex-col justify-center sm:block">
                 {/* Background gradient */}
+                {/* Background gradient - REMOVED */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] bg-accent-gold/5 rounded-full blur-3xl opacity-50" />
+                    {/* Clean background without the yellow blur */}
                 </div>
 
                 <div className="relative max-w-5xl mx-auto text-center z-10">
@@ -356,9 +357,9 @@ export default async function LandingPage() {
                 <div className="max-w-4xl mx-auto">
                     <div className="relative overflow-hidden rounded-3xl p-6 sm:p-8 lg:p-12 text-center border border-accent-gold/30 shadow-2xl">
                         {/* Background Gradients */}
+                        {/* Background Gradients */}
                         <div className="absolute inset-0 bg-gradient-to-br from-bg-secondary to-bg-primary z-0" />
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-gold/5 rounded-full blur-[100px]" />
-                        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-gold/5 rounded-full blur-[100px]" />
+                        {/* Blur effects removed for cleaner look */}
 
                         <div className="relative z-10">
                             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-semibold text-text-primary mb-4">
