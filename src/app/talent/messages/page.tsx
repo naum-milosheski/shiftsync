@@ -191,7 +191,18 @@ function MessagesPageContent() {
                         {filteredConversations.map((convo) => (
                             <button
                                 key={convo.id}
-                                onClick={() => setSelectedConvo(convo)}
+                                onClick={() => {
+                                    // Mark conversation as read
+                                    const updatedConvo = {
+                                        ...convo,
+                                        unreadCount: 0,
+                                        messages: convo.messages.map(m => ({ ...m, read: true }))
+                                    };
+                                    setSelectedConvo(updatedConvo);
+                                    setConversations(prev => prev.map(c =>
+                                        c.id === convo.id ? updatedConvo : c
+                                    ));
+                                }}
                                 className={`w-full p-3 sm:p-4 flex items-start gap-3 hover:bg-bg-elevated transition-colors border-b border-border-subtle text-left ${selectedConvo?.id === convo.id ? 'bg-bg-elevated' : ''
                                     }`}
                             >

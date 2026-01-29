@@ -55,7 +55,9 @@ const talentImages: Record<string, string> = {
     "Benjamin Cole": "/images/talent/benjamin.png",
     "Alexandra Weston": "/images/talent/alexandra.png",
     "Christian Blake": "/images/talent/christian.png",
-    // Diana Pierce, Maxfield Grant, Natalie Sinclair (Pending generation due to quota)
+    "Diana Pierce": "/images/talent/diana.png",
+    "Maxfield Grant": "/images/talent/maxfield.png",
+    "Natalie Sinclair": "/images/talent/natalie.png",
 };
 
 // Generate professional avatar URL
